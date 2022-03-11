@@ -3,19 +3,19 @@
     <div class="row justify-content-between pt-3 text-center">
       <div
         class="col-4 selectable"
-        @click="changePage(-1)"
+        @click="getNewer()"
         title="Previous"
         :disabled="currentPage == 1"
       >
-        <i class="mdi mdi-chevron-left"></i>Previous
+        <i class="mdi mdi-chevron-left"></i>Newer
       </div>
       <div
         class="col-4 selectable"
-        @click="changePage(1)"
+        @click="getOlder()"
         title="Next"
         :disabled="currentPage === totalPages"
       >
-        Next
+        Older
         <i class="mdi mdi-chevron-right"></i>
       </div>
     </div>
@@ -49,9 +49,17 @@ export default {
       posts: computed(() => AppState.posts),
       totalPages: computed(() => AppState.totalPages),
       currentPage: computed(() => AppState.allPages),
-      async changePage(val) {
+      async getNewer() {
         try {
-          await postsService.changePage(val);
+          await postsService.getNewer();
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "error");
+        }
+      },
+      async getOlder() {
+        try {
+          await postsService.getOlder();
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");

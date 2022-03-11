@@ -1,23 +1,38 @@
 import { AppState } from "../AppState"
+import { router } from "../router"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
 class PostsService {
-  async getAllPosts() {
-    const res = await api.get('api/posts')
-    logger.log('get all posts', res.data.posts)
+  async getAllPosts(query = {}) {
+    const res = await api.get('api/posts',)
+    logger.log('get all posts', res.data)
     AppState.posts = res.data.posts
+    AppState.newerPage = res.data.newer
+    AppState.olderPage = res.data.older
   }
-  // async changePage(val){
-  //   let newPage = baseQuery.page + val
-  //   let AppState.totalPages = 
-  //   if (newPage > 0 && newPage <= AppState.totalPages) {
-  //     baseQuery.page = newPage
-  //     const res = await api.get('', {params: baseQuery})
-  //     const posts = res.data.results.map(p => new Post(p))
-  //     AppState.currentPage = newPage
-  //   }
-  // }
+  async getPostsByProfile(id) {
+    const res = await api.get('api/profiles/' + id + '/posts')
+    logger.log('get post by profile', res.data)
+    AppState.posts = res.data.posts
+    AppState.newerPage = res.data.newer
+    AppState.olderPage = res.data.older
+  }
+  async getNewer() {
+    const res = await api.get(AppState.newerPage)
+    logger.log('get newer', res.data)
+    AppState.posts = res.data.posts
+    AppState.newerPage = res.data.newer
+    AppState.olderPage = res.data.older
+
+  }
+  async getOlder() {
+    const res = await api.get(AppState.olderPage)
+    logger.log('get older', res.data)
+    AppState.posts = res.data.posts
+    AppState.newerPage = res.data.newer
+    AppState.olderPage = res.data.older
+  }
 }
 
 export const postsService = new PostsService()

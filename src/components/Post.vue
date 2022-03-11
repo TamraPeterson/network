@@ -1,9 +1,10 @@
 <template>
   <div class="container-fluid p-3 bg-light shadow">
+    <p>{{ post.createdAt }}</p>
     <img class="img-fluid" :src="post.imgUrl" alt="" />
     <h4>
       <img
-        @click="goTo('Profile')"
+        @click="goTo()"
         class="img-fluid profile-img m-3 selectable"
         :src="post.creator.picture"
         alt=""
@@ -24,13 +25,13 @@ export default {
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const router = useRouter();
     const route = useRoute();
     return {
       route,
-      goTo(page) {
-        router.push({ name: page });
+      goTo() {
+        router.push({ name: "Profile", params: { id: props.post.creatorId } });
       },
     };
   },
@@ -43,7 +44,5 @@ export default {
   height: 40px;
   width: 40px;
   border-radius: 50px;
-}
-.profile-img :hover {
 }
 </style>
