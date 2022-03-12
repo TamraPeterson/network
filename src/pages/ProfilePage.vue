@@ -10,6 +10,25 @@
         </div>
       </div>
     </div>
+    <div class="row justify-content-between pt-3 text-center">
+      <div
+        class="col-4 selectable"
+        @click="getNewer()"
+        title="getNewer"
+        :disabled="newerPage == null"
+      >
+        <i class="mdi mdi-chevron-left"></i>Newer
+      </div>
+      <div
+        class="col-4 selectable"
+        @click="getOlder()"
+        title="getOlder"
+        :disabled="olderPage == null"
+      >
+        Older
+        <i class="mdi mdi-chevron-right"></i>
+      </div>
+    </div>
     <div class="row justify-content-center">
       <div class="col-9 p-3" v-for="p in posts" :key="p.id">
         <Post :post="p" />
@@ -45,6 +64,24 @@ export default {
     return {
       profile: computed(() => AppState.profile),
       posts: computed(() => AppState.posts),
+      olderPage: computed(() => AppState.olderPage),
+      newerPage: computed(() => AppState.newerPage),
+      async getNewer() {
+        try {
+          await postsService.getNewer();
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "error");
+        }
+      },
+      async getOlder() {
+        try {
+          await postsService.getOlder();
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "error");
+        }
+      },
     };
   },
 };

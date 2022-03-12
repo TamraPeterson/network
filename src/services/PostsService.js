@@ -5,7 +5,7 @@ import { api } from "./AxiosService"
 
 class PostsService {
   async getAllPosts(query = {}) {
-    const res = await api.get('api/posts',)
+    const res = await api.get('api/posts', { params: query })
     logger.log('get all posts', res.data)
     AppState.posts = res.data.posts
     AppState.newerPage = res.data.newer
@@ -33,6 +33,7 @@ class PostsService {
     AppState.newerPage = res.data.newer
     AppState.olderPage = res.data.older
   }
+
 }
 
 export const postsService = new PostsService()

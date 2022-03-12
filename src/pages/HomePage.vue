@@ -1,11 +1,31 @@
 <template>
   <div class="container-fluid">
+    <b
+      v-if="account.id"
+      title="Create Post"
+      class="
+        create-btn
+        btn btn-primary
+        rounded-pill
+        shadow
+        d-flex
+        align-items-center
+        justify-content-center
+      "
+      data-bs-toggle="modal"
+      data-bs-target="#form-modal"
+    >
+      <i class="mdi mdi-plus"></i>
+    </b>
+    <div class="row justify-content-center p-4">
+      <Search />
+    </div>
     <div class="row justify-content-between pt-3 text-center">
       <div
         class="col-4 selectable"
         @click="getNewer()"
         title="Previous"
-        :disabled="currentPage == 1"
+        :disabled="newerPage === null"
       >
         <i class="mdi mdi-chevron-left"></i>Newer
       </div>
@@ -13,7 +33,7 @@
         class="col-4 selectable"
         @click="getOlder()"
         title="Next"
-        :disabled="currentPage === totalPages"
+        :disabled="olderPage === null"
       >
         Older
         <i class="mdi mdi-chevron-right"></i>
@@ -24,7 +44,14 @@
       <div class="col-9 p-3" v-for="p in posts" :key="p.id">
         <Post :post="p" />
       </div>
+      <div class="col-9 p-3" v-for="f in profiles" :key="f.id">
+        <Profile :profile="f" />
+      </div>
     </div>
+    <Modal>
+      <template #modal-title>New Post</template>
+      <template #modal-body><NewPostForm /></template>
+    </Modal>
   </div>
 </template>
 
@@ -47,17 +74,25 @@ export default {
     });
     return {
       posts: computed(() => AppState.posts),
-      totalPages: computed(() => AppState.totalPages),
-      currentPage: computed(() => AppState.allPages),
+      olderPage: computed(() => AppState.olderPage),
+      newerPage: computed(() => AppState.newerPage),
+      allProfiles: computed(() => AppState.allProfiles),
+      account: computed(() => AppState.account),
       async getNewer() {
-        try {
-          await postsService.getNewer();
-        } catch (error) {
-          logger.error(error);
-          Pop.toast(error.message, "error");
+        // TODO fix this if situation or disable button
+        if (AppState.newerPage === null) {
+          return;
+        } else {
+          try {
+            await postsService.getNewer();
+          } catch (error) {
+            logger.error(error);
+            Pop.toast(error.message, "error");
+          }
         }
       },
       async getOlder() {
+        // TODO figure out an if/else situation or disable button
         try {
           await postsService.getOlder();
         } catch (error) {
@@ -71,4 +106,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.create-btn {
+  font-size: 20px;
+  height: 60px;
+  width: 60px;
+  z-index: 100;
+  position: fixed;
+  top: 12vh;
+  left: 5vh;
+}
 </style>
