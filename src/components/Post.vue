@@ -1,10 +1,9 @@
 <template>
   <div class="container-fluid p-3 bg-light shadow">
-    <p>{{ post.createdAt }}</p>
     <img class="img-fluid" :src="post.imgUrl" alt="" />
     <h4>
       <img
-        @click="goTo()"
+        @click="goTo"
         class="img-fluid profile-img m-3 selectable"
         :src="post.creator.picture"
         alt=""
@@ -12,12 +11,26 @@
       :
     </h4>
     <h6 class="ps-4 p-2">{{ post.body }}</h6>
+    <h4 class="ml-auto">
+      <i
+        class="mdi mdi-heart-outline selectable"
+        title="like post"
+        @click="like(post.id)"
+      ></i
+      >{{ post.likes.length }}
+    </h4>
   </div>
+  <small>{{ new Date(Date.parse(post.createdAt)) }}</small>
 </template>
 
 
 <script>
+import { computed, onMounted } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
+import { postsService } from "../services/PostsService";
+import Pop from "../utils/Pop";
+import { logger } from "../utils/Logger";
+import { AppState } from "../AppState";
 export default {
   props: {
     post: {
@@ -29,9 +42,18 @@ export default {
     const router = useRouter();
     const route = useRoute();
     return {
+      posts: computed(() => AppState.posts),
       route,
       goTo() {
         router.push({ name: "Profile", params: { id: props.post.creatorId } });
+      },
+      async like(id) {
+        try {
+          await postsService.like(id);
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "error");
+        }
       },
     };
   },

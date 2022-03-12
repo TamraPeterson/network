@@ -2,8 +2,8 @@
   <div class="container-fluid shadow">
     <div class="row justify-content-center">
       <div class="col-10 text-center">
-        <img class="coverPhoto" :src="profile.coverImg" alt="" />
-        <img class="img-fluid pic p-3" :src="profile.picture" alt="" />
+        <img class="coverPhoto rounded" :src="profile.coverImg" alt="" />
+        <img class="img-fluid pic p-3 rounded" :src="profile.picture" alt="" />
         <h1 class="p-2">{{ profile.name }}</h1>
         <div>
           {{ profile.bio }}
@@ -15,7 +15,7 @@
         class="col-4 selectable"
         @click="getNewer()"
         title="getNewer"
-        :disabled="newerPage == null"
+        v-if="newerPage"
       >
         <i class="mdi mdi-chevron-left"></i>Newer
       </div>
@@ -23,7 +23,7 @@
         class="col-4 selectable"
         @click="getOlder()"
         title="getOlder"
-        :disabled="olderPage == null"
+        v-if="olderPage"
       >
         Older
         <i class="mdi mdi-chevron-right"></i>

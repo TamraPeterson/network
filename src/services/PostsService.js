@@ -34,6 +34,18 @@ class PostsService {
     AppState.olderPage = res.data.older
   }
 
+  async create(postData) {
+    const res = await api.post('api/posts', postData)
+    logger.log('create post', res.data)
+    AppState.posts.push(res.data)
+    this.getAllPosts()
+  }
+
+  async like(id) {
+    const res = await api.post('api/posts/' + id + '/like')
+    logger.log('like post', res.data)
+  }
+
 }
 
 export const postsService = new PostsService()

@@ -20,12 +20,12 @@
     <div class="row justify-content-center p-4">
       <Search />
     </div>
-    <div class="row justify-content-between pt-3 text-center">
+    <div class="row justify-content-center pt-3 text-center">
       <div
         class="col-4 selectable"
         @click="getNewer()"
         title="Previous"
-        :disabled="newerPage === null"
+        v-if="newerPage"
       >
         <i class="mdi mdi-chevron-left"></i>Newer
       </div>
@@ -33,7 +33,7 @@
         class="col-4 selectable"
         @click="getOlder()"
         title="Next"
-        :disabled="olderPage === null"
+        v-if="olderPage"
       >
         Older
         <i class="mdi mdi-chevron-right"></i>
@@ -76,7 +76,6 @@ export default {
       posts: computed(() => AppState.posts),
       olderPage: computed(() => AppState.olderPage),
       newerPage: computed(() => AppState.newerPage),
-      allProfiles: computed(() => AppState.allProfiles),
       account: computed(() => AppState.account),
       async getNewer() {
         // TODO fix this if situation or disable button
