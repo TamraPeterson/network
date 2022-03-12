@@ -36,7 +36,6 @@ export default {
       async search() {
         try {
           await postsService.getAllPosts({ query: searchText.value });
-          await profilesService.getAllProfiles({ query: searchText.value });
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");

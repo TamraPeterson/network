@@ -41,10 +41,19 @@ class PostsService {
     this.getAllPosts()
   }
 
+  async remove(id) {
+    const res = await api.delete('api/posts/' + id)
+    logger.log('delete post', res.data)
+    AppState.posts = AppState.posts.filter(p => p.id != id)
+  }
+
   async like(id) {
     const res = await api.post('api/posts/' + id + '/like')
     logger.log('like post', res.data)
+
   }
+
+
 
 }
 

@@ -78,7 +78,6 @@ export default {
       newerPage: computed(() => AppState.newerPage),
       account: computed(() => AppState.account),
       async getNewer() {
-        // TODO fix this if situation or disable button
         if (AppState.newerPage === null) {
           return;
         } else {
@@ -91,7 +90,6 @@ export default {
         }
       },
       async getOlder() {
-        // TODO figure out an if/else situation or disable button
         try {
           await postsService.getOlder();
         } catch (error) {

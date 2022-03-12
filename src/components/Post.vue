@@ -20,7 +20,14 @@
       >{{ post.likes.length }}
     </h4>
   </div>
-  <small>{{ new Date(Date.parse(post.createdAt)) }}</small>
+  <div class="d-flex justify-content-between">
+    <small>{{ new Date(Date.parse(post.createdAt)) }}</small>
+    <i
+      class="mdi mdi-delete selectable"
+      title="delete post"
+      @click="remove(post.id)"
+    ></i>
+  </div>
 </template>
 
 
@@ -43,6 +50,7 @@ export default {
     const route = useRoute();
     return {
       posts: computed(() => AppState.posts),
+      likes: computed(() => AppState.posts.likes),
       route,
       goTo() {
         router.push({ name: "Profile", params: { id: props.post.creatorId } });
@@ -53,6 +61,16 @@ export default {
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");
+        }
+      },
+      async remove(id) {
+        if (await Pop.confirm()) {
+          try {
+            await postsService.remove(id);
+          } catch (error) {
+            logger.error(error);
+            Pop.toast(error.message, "error");
+          }
         }
       },
     };
