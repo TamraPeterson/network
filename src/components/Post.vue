@@ -10,23 +10,26 @@
       />{{ post.creator.name }}
       :
     </h4>
-    <h6 class="ps-4 p-2">{{ post.body }}</h6>
-    <h4 class="ml-auto">
+    <h5 class="">{{ post.body }}</h5>
+    <h6 class="text-end">
       <i
+        v-if="account.id"
         class="mdi mdi-heart-outline selectable"
         title="like post"
         @click="like(post.id)"
-      ></i
-      >{{ post.likes.length }}
-    </h4>
+        >{{ post.likes.length }} likes</i
+      >
+    </h6>
   </div>
   <div class="d-flex justify-content-between">
     <small>{{ new Date(Date.parse(post.createdAt)) }}</small>
     <i
+      v-if="account.id == post.creatorId"
       class="mdi mdi-delete selectable"
       title="delete post"
       @click="remove(post.id)"
-    ></i>
+      >Delete Post</i
+    >
   </div>
 </template>
 
@@ -51,6 +54,7 @@ export default {
     return {
       posts: computed(() => AppState.posts),
       likes: computed(() => AppState.posts.likes),
+      account: computed(() => AppState.account),
       route,
       goTo() {
         router.push({ name: "Profile", params: { id: props.post.creatorId } });
@@ -71,6 +75,14 @@ export default {
             logger.error(error);
             Pop.toast(error.message, "error");
           }
+        }
+      },
+      async edit(id) {
+        try {
+          await postsService.edit(id);
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "error");
         }
       },
     };

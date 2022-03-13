@@ -44,9 +44,6 @@
       <div class="col-9 p-3" v-for="p in posts" :key="p.id">
         <Post :post="p" />
       </div>
-      <div class="col-9 p-3" v-for="f in profiles" :key="f.id">
-        <Profile :profile="f" />
-      </div>
     </div>
     <Modal>
       <template #modal-title>New Post</template>
@@ -77,6 +74,7 @@ export default {
       olderPage: computed(() => AppState.olderPage),
       newerPage: computed(() => AppState.newerPage),
       account: computed(() => AppState.account),
+      profiles: computed(() => AppState.profile),
       async getNewer() {
         if (AppState.newerPage === null) {
           return;
