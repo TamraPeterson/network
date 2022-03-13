@@ -24,7 +24,7 @@
     <label for="">Resume</label>
     <input v-model="editable.resume" type="text" />
 
-    <button type="button" class="btn btn-primary mt-3" @click="update">
+    <button type="button" class="btn btn-primary mt-3" @click.prevent="update">
       Submit
     </button>
   </form>

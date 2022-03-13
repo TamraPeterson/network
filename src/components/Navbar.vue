@@ -20,6 +20,7 @@
       <ul class="navbar-nav me-auto">
         <li>
           <router-link
+            v-if="account.id"
             :to="{ name: 'Profile', params: { id: account.id } }"
             class="btn text-white selectable text-uppercase"
           >

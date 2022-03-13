@@ -14,8 +14,8 @@
           Edit Profile <i class="mdi mdi-pencil p-1"></i>
         </div>
       </div>
-      <div class="row justify-content-center p-4">
-        <div class="col-4 text-center">
+      <div class="row justify-content-center p-4 bg-light shadow">
+        <div class="col-md-4 text-center">
           <h5 class="p-2">{{ profile.name }}</h5>
           <img
             class="img-fluid pic p-1 rounded"
@@ -30,10 +30,10 @@
             >Class of: {{ profile.class }}
           </p>
         </div>
-        <div class="col-3 p-5">
+        <div class="col-md-3 p-5">
           <h6>Bio: {{ profile.bio }}</h6>
         </div>
-        <div class="col-5 p-5 icons">
+        <div class="col-md-5 p-5 icons">
           <h6>
             <div>
               <i
@@ -68,6 +68,7 @@
         <div></div>
       </div>
     </div>
+
     <div class="row justify-content-between pt-3 text-center">
       <div
         class="col-4 selectable"

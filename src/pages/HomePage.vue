@@ -17,11 +17,11 @@
     >
       <i class="mdi mdi-plus"></i>
     </b>
-    <div class="row justify-content-center">
+    <!-- <div class="row justify-content-center">
       <div v-for="a in ads" :key="a.index" class="col-12 m-2 text-center">
         <Ad :ad="a" />
       </div>
-    </div>
+    </div> -->
     <div class="row justify-content-center p-4">
       <Search />
     </div>
@@ -46,7 +46,7 @@
     </div>
     <div class="row justify-content-center">
       <!-- <div class="col-3 p-3 height-100">Sidebar</div> -->
-      <div class="col-7 p-3" v-for="p in posts" :key="p.id">
+      <div class="col-md-7 p-3" v-for="p in posts" :key="p.id">
         <Post :post="p" />
       </div>
     </div>
