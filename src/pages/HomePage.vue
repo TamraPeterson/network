@@ -17,8 +17,8 @@
     >
       <i class="mdi mdi-plus"></i>
     </b>
-    <div class="row">
-      <div class="col-12 m-2" v-for="a in ads" :key="a.id">
+    <div class="row justify-content-center">
+      <div v-for="a in ads" :key="a.index" class="col-12 m-2 text-center">
         <Ad :ad="a" />
       </div>
     </div>
@@ -71,6 +71,11 @@ export default {
     onMounted(async () => {
       try {
         await postsService.getAllPosts();
+      } catch (error) {
+        logger.error(error);
+        Pop.toast(error.message, "error");
+      }
+      try {
         await adsService.getAds();
       } catch (error) {
         logger.error(error);

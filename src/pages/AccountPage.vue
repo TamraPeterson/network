@@ -1,13 +1,17 @@
 <template>
   <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
+    <h1 class="p-3">Welcome {{ account.name }}</h1>
     <img class="rounded" :src="account.picture" alt="" />
-    <p>
+    <p class="p-3">
       {{ account.email }}
     </p>
-    Bio: {{ account.bio }}
 
-    <!-- <h2 class="col-12 selectable p-3 rounded">View Your Profile</h2> -->
+    <router-link
+      :to="{ name: 'Profile', params: { id: account.id } }"
+      class="btn btn-primary mt-4 selectable text-uppercase"
+    >
+      View/Edit Your Profile
+    </router-link>
   </div>
 </template>
 
@@ -26,6 +30,6 @@ export default {
 
 <style scoped>
 img {
-  max-width: 100px;
+  max-width: 300px;
 }
 </style>

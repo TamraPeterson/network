@@ -54,6 +54,7 @@ export default {
     return {
       posts: computed(() => AppState.posts),
       likes: computed(() => AppState.posts.likes),
+      likes: computed(() => AppState.posts.likes.length),
       account: computed(() => AppState.account),
       route,
       goTo() {

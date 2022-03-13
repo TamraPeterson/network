@@ -1,55 +1,53 @@
 <template>
-  <form @submit.prevent="editProfile">
-    <div class="">
-      <label for="" class="form-label">Bio</label>
-      <input
-        v-model="state.editable.bio"
-        required
-        type="text"
-        class="form-control"
-        aria-describedby="helpId"
-      />
-    </div>
+  <form class="d-flex flex-column p-3">
+    <label for="">Name</label>
+    <input v-model="editable.name" type="text" />
 
-    <div class="">
-      <label for="" class="form-label">Photo</label>
-      <input
-        v-model="state.editable.imgUrl"
-        type="text"
-        class="form-control"
-        aria-describedby="helpId"
-      />
-    </div>
+    <label for="">Avatar</label>
+    <input v-model="editable.picture" type="text" />
 
-    <div class="col-12 d-flex justify-content-end mt-3">
-      <button class="btn btn-primary">Submit</button>
-    </div>
+    <label for="">Banner Image</label>
+    <input v-model="editable.coverImg" type="text" />
+
+    <label for="">Class</label>
+    <input v-model="editable.class" type="text" />
+
+    <label for="">Bio</label>
+    <input v-model="editable.bio" type="text" />
+
+    <label for="">Github</label>
+    <input v-model="editable.github" type="text" />
+
+    <label for="">LinkedIn</label>
+    <input v-model="editable.linkedin" type="text" />
+
+    <label for="">Resume</label>
+    <input v-model="editable.resume" type="text" />
+
+    <button type="button" class="btn btn-primary mt-3" @click="update">
+      Submit
+    </button>
   </form>
 </template>
 // bio, class, coverImg, email, github, graduated, linkedin, name, picture, resume,
 
 <script>
-import { Modal } from "bootstrap";
-import { postsService } from "../services/PostsService";
+import { AppState } from "../AppState";
+import { computed, reactive, onMounted, ref, watchEffect } from "vue";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
-import { reactive, ref } from "@vue/reactivity";
-import { watchEffect } from "@vue/runtime-core";
-import { profilesService } from "../services/ProfilesService";
+import { accountService } from "../services/AccountService";
 export default {
   setup() {
-    const state = reactive({
-      editable: {},
+    const editable = ref({});
+    watchEffect(() => {
+      editable.value = AppState.account;
     });
     return {
-      state,
-      async editProfile(id) {
+      editable,
+      async update() {
         try {
-          await profilesService.editProfile(state.editable, id);
-          state.editable = {};
-          Modal.getOrCreateInstance(
-            document.getElementById("form-modal")
-          ).hide();
+          await accountService.update(editable.value);
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");

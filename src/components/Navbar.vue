@@ -20,10 +20,10 @@
       <ul class="navbar-nav me-auto">
         <li>
           <router-link
-            :to="{ name: 'About' }"
-            class="btn text-light lighten-30 selectable text-uppercase"
+            :to="{ name: 'Profile', params: { id: account.id } }"
+            class="btn text-white selectable text-uppercase"
           >
-            About
+            Your Profile
           </router-link>
         </li>
       </ul>
@@ -93,6 +93,7 @@ export default {
   setup() {
     return {
       user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       async login() {
         AuthService.loginWithPopup();
       },
