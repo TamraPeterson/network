@@ -49,8 +49,10 @@ class PostsService {
 
   async like(id) {
     const res = await api.post('api/posts/' + id + '/like')
-    logger.log('like post', res.data)
-
+    logger.log('resdata for likes', res.data)
+    logger.log('like post', res.data.likes.length)
+    AppState.likes = res.data.likes
+    this.getAllPosts()
   }
 
 

@@ -2,17 +2,21 @@
   <div class="row justify-content-center">
     <div class="col-6">
       <form @submit.prevent="search">
-        <input
-          v-model="searchText"
-          type="search"
-          class="form-control rounded"
-          placeholder="Search All Posts"
-          aria-label="Search"
-          aria-describedby="search-addon"
-        />
-        <button type="button" class="btn btn-primary text-white text-center">
-          Search
-        </button>
+        <div class="input-group">
+          <input
+            v-model="searchText"
+            type="search"
+            class="form-control rounded"
+            placeholder="Search All Posts"
+            aria-label="Search"
+            aria-describedby="search-addon"
+          />
+          <div class="input-group-append">
+            <button type="button" class="btn btn-primary text-white">
+              Search
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>

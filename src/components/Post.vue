@@ -48,13 +48,14 @@ export default {
       required: true,
     },
   },
+
   setup(props) {
     const router = useRouter();
     const route = useRoute();
     return {
       posts: computed(() => AppState.posts),
-      likes: computed(() => AppState.posts.likes),
       likes: computed(() => AppState.posts.likes.length),
+      // likes: computed(() => AppState.likes.length),
       account: computed(() => AppState.account),
       route,
       goTo() {

@@ -10,4 +10,5 @@ export const AppState = reactive({
   profile: {},
   allProfiles: [],
   ads: [],
+  likes: []
 })
