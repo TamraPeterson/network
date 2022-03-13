@@ -43,9 +43,9 @@ export default {
     });
     return {
       state,
-      async editProfile() {
+      async editProfile(id) {
         try {
-          await profilesService.editProfile(state.editable);
+          await profilesService.editProfile(state.editable, id);
           state.editable = {};
           Modal.getOrCreateInstance(
             document.getElementById("form-modal")

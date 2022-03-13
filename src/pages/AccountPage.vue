@@ -5,6 +5,8 @@
     <p>
       {{ account.email }}
     </p>
+    Bio: {{ account.bio }}
+
     <!-- <h2 class="col-12 selectable p-3 rounded">View Your Profile</h2> -->
   </div>
 </template>

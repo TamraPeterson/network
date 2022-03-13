@@ -17,6 +17,11 @@
     >
       <i class="mdi mdi-plus"></i>
     </b>
+    <div class="row">
+      <div class="col-12 m-2" v-for="a in ads" :key="a.id">
+        <Ad :ad="a" />
+      </div>
+    </div>
     <div class="row justify-content-center p-4">
       <Search />
     </div>
@@ -41,7 +46,7 @@
     </div>
     <div class="row justify-content-center">
       <!-- <div class="col-3 p-3 height-100">Sidebar</div> -->
-      <div class="col-9 p-3" v-for="p in posts" :key="p.id">
+      <div class="col-7 p-3" v-for="p in posts" :key="p.id">
         <Post :post="p" />
       </div>
     </div>
@@ -57,6 +62,8 @@ import { computed, onMounted } from "@vue/runtime-core";
 import Pop from "../utils/Pop";
 import { logger } from "../utils/Logger";
 import { postsService } from "../services/PostsService";
+import { adsService } from "../services/AdsService";
+
 import { AppState } from "../AppState";
 export default {
   name: "Home",
@@ -64,6 +71,7 @@ export default {
     onMounted(async () => {
       try {
         await postsService.getAllPosts();
+        await adsService.getAds();
       } catch (error) {
         logger.error(error);
         Pop.toast(error.message, "error");
@@ -75,6 +83,7 @@ export default {
       newerPage: computed(() => AppState.newerPage),
       account: computed(() => AppState.account),
       profiles: computed(() => AppState.profile),
+      ads: computed(() => AppState.ads),
       async getNewer() {
         if (AppState.newerPage === null) {
           return;

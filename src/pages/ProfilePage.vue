@@ -6,35 +6,35 @@
       </div>
       <div class="row justify-content-end">
         <div
-          class="col-2 text-end selectable"
+          class="col-2 text-end selectable p-2"
           v-if="account.id == profile.id"
           data-bs-toggle="modal"
           data-bs-target="#form-modal"
         >
-          Edit Profile <i class="mdi mdi-pencil"></i>
+          Edit Profile <i class="mdi mdi-pencil p-1"></i>
         </div>
       </div>
       <div class="row justify-content-center p-4">
         <div class="col-4 text-center">
+          <h5 class="p-2">{{ profile.name }}</h5>
           <img
-            class="img-fluid pic p-3 rounded"
+            class="img-fluid pic p-1 rounded"
             :src="profile.picture"
             alt=""
           />
-          <h3 class="p-2">{{ profile.name }}</h3>
+          <p>
+            <i
+              class="mdi mdi-school text-end p-1 selectable"
+              v-if="profile.graduated"
+            ></i
+            >Class of: {{ profile.class }}
+          </p>
         </div>
-        <div class="col-4 p-5">
+        <div class="col-3 p-5">
           <h6>Bio: {{ profile.bio }}</h6>
-          <!-- need social media links, alumni status, and class v-if="profile.graduated"-->
         </div>
-        <div class="col-4 p-5 icons">
-          <h5>
-            <div>
-              <i
-                class="mdi mdi-school text-end p-1 selectable"
-                v-if="profile.graduated"
-              ></i>
-            </div>
+        <div class="col-5 p-5 icons">
+          <h6>
             <div>
               <i
                 class="mdi mdi-linkedin text-end p-1 selectable"
@@ -42,17 +42,28 @@
               ></i
               >{{ profile.linkedin }}
             </div>
-            <i
-              class="mdi mdi-github text-end p-1 selectable"
-              v-if="profile.github"
-            ></i
-            >: {{ profile.github }}
-            <i
-              class="mdi mdi-email text-end p-1 selectable"
-              v-if="profile.email"
-            ></i
-            >: {{ profile.email }}
-          </h5>
+            <div>
+              <i
+                class="mdi mdi-github text-end p-1 selectable"
+                v-if="profile.github"
+              ></i>
+              {{ profile.github }}
+            </div>
+            <div>
+              <i
+                class="mdi mdi-email text-end p-1 selectable"
+                v-if="profile.email"
+              ></i>
+              {{ profile.email }}
+            </div>
+            <div>
+              <i
+                class="mdi mdi-information text-end p-1 selectable"
+                v-if="profile.resume"
+              ></i>
+              {{ profile.resume }}
+            </div>
+          </h6>
         </div>
         <div></div>
       </div>
